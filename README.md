@@ -8,6 +8,12 @@ macOS 桌面灵感记录工具：物理气泡收纳想法，支持 AI 整理、�
 > 未使用 Developer ID 签名，未经过 Apple 公证。当前采用本地 ad-hoc 签名。  
 > 源码可用（ELv2），不是 OSI 开源许可。不支持 Windows；Intel Mac 未验收。
 
+<p align="center">
+  <img src="docs/design/assets/linggangu-mushroom-base.png" alt="灵感菇玻璃蘑菇外形示意图" width="320">
+</p>
+
+外形示意：玻璃蘑菇。实际桌面组件背景透明，灵感以可拖动的物理气泡呈现。
+
 ![使用模拟数据的灵感菇工作台](docs/images/workbench.png)
 
 ## 下载和安装

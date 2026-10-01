@@ -8,6 +8,12 @@ A glass mushroom on your Mac desktop: capture ideas, organize and discuss them w
 > Ad-hoc signed, **not Developer ID signed or Apple notarized**.  
 > Source-available under ELv2, not OSI open source. Windows is unsupported; Intel Macs are unverified.
 
+<p align="center">
+  <img src="docs/design/assets/linggangu-mushroom-base.png" alt="IdeaShroom glass mushroom appearance concept" width="320">
+</p>
+
+Glass mushroom appearance concept. The actual desktop widget has a transparent background and draggable physics bubbles for ideas.
+
 ![Workbench with synthetic notes](docs/images/workbench.png)
 
 ## Install
