@@ -30,7 +30,8 @@ final class PersistenceTests: XCTestCase {
             tags: ["设计"]
         )
 
-        XCTAssertEqual(try await repository.ideaCount(includeArchived: false), 2)
+        let initialCount = try await repository.ideaCount(includeArchived: false)
+        XCTAssertEqual(initialCount, 2)
         let searchResult = try await repository.listIdeas(
             IdeaQuery(searchText: "总结")
         )
@@ -45,15 +46,18 @@ final class PersistenceTests: XCTestCase {
             id: first.id,
             at: Date(timeIntervalSince1970: 1_000)
         )
-        XCTAssertEqual(try await repository.ideaCount(includeArchived: false), 1)
-        XCTAssertEqual(try await repository.ideaCount(includeArchived: true), 2)
+        let activeCount = try await repository.ideaCount(includeArchived: false)
+        let totalCount = try await repository.ideaCount(includeArchived: true)
+        XCTAssertEqual(activeCount, 1)
+        XCTAssertEqual(totalCount, 2)
 
         let archived = try await repository.idea(id: first.id)
         XCTAssertEqual(archived?.status, .archived)
         XCTAssertNotNil(archived?.archivedAt)
 
         try await repository.deleteIdea(id: first.id)
-        XCTAssertNil(try await repository.idea(id: first.id))
+        let deleted = try await repository.idea(id: first.id)
+        XCTAssertNil(deleted)
     }
 
     func testEditStatusClearTagsAndReopenDatabase() async throws {
@@ -205,14 +209,11 @@ final class PersistenceTests: XCTestCase {
         try await repository.saveEvaluation(evaluation)
         try await repository.saveConversation(conversation)
 
-        XCTAssertEqual(try await repository.summaries(limit: 10), [summary])
-        XCTAssertEqual(
-            try await repository.evaluations(for: idea.id),
-            [evaluation]
-        )
-        XCTAssertEqual(
-            try await repository.conversations(limit: 10),
-            [conversation]
-        )
+        let summaries = try await repository.summaries(limit: 10)
+        let evaluations = try await repository.evaluations(for: idea.id)
+        let conversations = try await repository.conversations(limit: 10)
+        XCTAssertEqual(summaries, [summary])
+        XCTAssertEqual(evaluations, [evaluation])
+        XCTAssertEqual(conversations, [conversation])
     }
 }
