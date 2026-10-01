@@ -173,12 +173,15 @@ final class PersistenceTests: XCTestCase {
             source: .workbench,
             tags: []
         )
+        // Persisted JSON uses ISO-8601 seconds; use deterministic second-aligned fixtures.
+        let timestamp = Date(timeIntervalSince1970: 1_000)
         let summary = Summary(
             scope: .ideaIDs([idea.id]),
             content: SummaryContent(themes: ["验证"]),
             sourceIdeaIDs: [idea.id],
             model: "mock",
-            promptVersion: "summary-v1"
+            promptVersion: "summary-v1",
+            createdAt: timestamp
         )
         let evaluation = Evaluation(
             ideaID: idea.id,
@@ -197,12 +200,15 @@ final class PersistenceTests: XCTestCase {
             confidence: 0.6,
             smallestExperiment: "访谈 3 人",
             model: "mock",
-            promptVersion: "investor-v1"
+            promptVersion: "investor-v1",
+            createdAt: timestamp
         )
         let conversation = Conversation(
             title: "讨论验证方式",
             scopeIdeaIDs: [idea.id],
-            model: "mock"
+            model: "mock",
+            createdAt: timestamp,
+            updatedAt: timestamp
         )
 
         try await repository.saveSummary(summary)
