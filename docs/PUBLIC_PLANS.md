@@ -7,7 +7,8 @@
 - 已实现：只读投资视角评估、报告保存、关联讨论和历史；AI 建议与用户状态分离。
 - 已实现：拒绝 API 重定向、临时网络会话、安全错误提示、非交互钥匙串状态检查。
 - 本地 Core Checks、UI smoke 和回环重定向测试已通过；使用假密钥/模拟数据。
-- 待运行：首次 GitHub CI 和完整 Xcode XCTest；不把已写 workflow 等同于云端通过。
+- 2026-10-01：公开仓库已创建；[GitHub CI](https://github.com/flame211186/linggangu-ideashroom/actions/runs/36856452873) 全部通过，包括 24 项 XCTest、Core Checks、回环重定向测试和 Release 打包。
+- 首次云端验收修复了测试断言中的异步调用和时间精度样本；没有改动应用数据逻辑。
 - 待完善：独立崩溃恢复、更多系统/辅助功能/双账户人工测试、Developer ID 签名与公证。
 - 后续可选：更多主题、Windows；当前无承诺日期。
 
