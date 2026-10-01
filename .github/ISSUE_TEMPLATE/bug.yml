@@ -1,0 +1,29 @@
+name: Bug report / 问题反馈
+description: Report a reproducible bug without private notes or credentials.
+body:
+  - type: markdown
+    attributes:
+      value: "请勿上传 API Key、真实灵感、数据库或含私人信息的截图。安全漏洞请遵循 SECURITY.md。"
+  - type: input
+    id: version
+    attributes:
+      label: App version / 应用版本
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: macOS version and chip / 系统和芯片
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps, expected and actual behavior / 复现步骤、预期和实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: provider
+    attributes:
+      label: Optional API provider and model / 可选服务商与模型
+      description: No keys, private endpoint URLs or full request logs.

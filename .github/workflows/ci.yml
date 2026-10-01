@@ -1,0 +1,38 @@
+name: macOS checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: macos-15
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Toolchain
+        run: swift --version
+      - name: Public tree checks
+        run: python3 Scripts/check-public-tree.py .
+      - name: Build and core checks (no real credentials)
+        run: |
+          swift build
+          swift run LingGanGuCoreChecks
+      - name: XCTest
+        run: swift test
+      - name: Authenticated redirect boundary (loopback only)
+        run: python3 Scripts/check-api-redirects.py "$(swift build --show-bin-path)/LingGanGuCoreChecks"
+      - name: Build Beta package
+        run: bash Scripts/build-beta.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: macos-arm64-beta
+          path: |
+            dist/*.zip
+            dist/*.sha256
+          if-no-files-found: error
+          retention-days: 14
+# UI smoke needs a graphical login session; run locally before each release.
+# This workflow never publishes a release or uses an API Key/signing secret.
